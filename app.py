@@ -44,3 +44,5 @@ with col2:
 if prompt := st.chat_input("Ask a question..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     status = st.status("Analyzing...")
+
+    tools_executed = []
