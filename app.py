@@ -16,3 +16,9 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 if "thread_id" not in st.session_state:
     st.session_state.thread_id = uuid.uuid4().hex
+
+from da_agent.data import STORE
+
+with st.sidebar:
+    st.subheader("📁 Dataset Selection")
+    data_source = st.radio("Choose source:", ["Sample Datasets", "Upload File"], horizontal=True)
