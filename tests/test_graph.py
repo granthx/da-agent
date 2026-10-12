@@ -24,3 +24,9 @@ class MockLLM:
 
     def bind_tools(self, tools):
         return self
+
+    def invoke(self, messages):
+        self.invocations.append(messages)
+        if self.responses:
+            return self.responses.pop(0)
+        return AIMessage(content="Default fallback mock answer")
