@@ -20,7 +20,10 @@ class DataStore:
             raise FileNotFoundError(f"File not found: {p}")
         ext = p.suffix.lower()
         if ext in (".csv", ".txt"):
-            df = pd.read_csv(p, sep=None, engine="python")  # sniff delimiter
+            try:
+                df = pd.read_csv(p, sep=None, engine="python", encoding="utf-8")
+            except (UnicodeDecodeError, pd.errors.ParserError):
+                df = pd.read_csv(p, sep=None, engine="python", encoding="latin-1")
         elif ext == ".tsv":
             df = pd.read_csv(p, sep="\t")
         elif ext in (".xlsx", ".xls"):
