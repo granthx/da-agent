@@ -18,7 +18,7 @@ HELP = """Commands: /load <file>  /schema  /memory  /forget <id-or-key>  /clear-
 Anything else is a question about the data."""
 
 
-def ask(graph, thread_id: str, question: str):
+def ask(graph, thread_id: str, question: str) -> dict:
     config = {"configurable": {"thread_id": thread_id}, "recursion_limit": 25 + MAX_TOOL_STEPS * 2}
     answer = ""
     for update in graph.stream({"messages": [HumanMessage(question)]}, config, stream_mode="updates"):
@@ -34,6 +34,7 @@ def ask(graph, thread_id: str, question: str):
                 for line in out.get("memory_log", []):
                     print(f"  [memory] {line}")
     print(f"\n{answer}\n")
+    return {"question": question, "tools": [], "answer": answer}
 
 
 def main():
