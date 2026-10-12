@@ -1,4 +1,4 @@
-langgraph>=0.2.60
+langgraph>=1.1.0,<1.2.0
 langchain-core>=0.3
 langchain-groq>=0.2
 pandas>=2.0
