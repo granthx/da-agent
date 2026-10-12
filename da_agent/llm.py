@@ -8,7 +8,7 @@ from .config import GROQ_MODEL
 def get_llm(model: str | None = None):
     from langchain_groq import ChatGroq
     api_key = os.getenv("GROQ_API_KEY", "").strip()
-    if not api_key:
+    if not api_key or api_key in ("your_groq_api_key_here", "gsk_your_groq_api_key_here"):
         raise RuntimeError("GROQ_API_KEY is not set.")
     model = model or GROQ_MODEL
     kwargs = dict(model=model, temperature=0, max_retries=3, timeout=60)
