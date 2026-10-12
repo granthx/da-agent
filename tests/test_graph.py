@@ -21,3 +21,6 @@ class MockLLM:
     def __init__(self, responses: list):
         self.responses = list(responses)
         self.invocations = []
+
+    def bind_tools(self, tools):
+        return self
