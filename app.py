@@ -35,3 +35,8 @@ with st.sidebar:
     st.subheader("🧠 Knowledge Memory")
     if st.button("Clear Memory"):
         MEMORY.clear()
+
+col1, col2 = st.columns([4, 1])
+with col2:
+    if st.button("Clear Chat"):
+        st.session_state.messages = []
