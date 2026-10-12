@@ -22,3 +22,5 @@ from da_agent.data import STORE
 with st.sidebar:
     st.subheader("📁 Dataset Selection")
     data_source = st.radio("Choose source:", ["Sample Datasets", "Upload File"], horizontal=True)
+
+    uploaded_file = st.file_uploader("Upload CSV, Excel, or Parquet", type=["csv", "tsv", "xlsx", "parquet"])
