@@ -29,3 +29,9 @@ with st.sidebar:
         st.write(f"Active dataset: {STORE.name}")
         with st.expander("Inspect Schema"):
             st.text(STORE.schema_summary())
+
+from da_agent.memory import MEMORY
+with st.sidebar:
+    st.subheader("🧠 Knowledge Memory")
+    if st.button("Clear Memory"):
+        MEMORY.clear()
