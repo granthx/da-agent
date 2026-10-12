@@ -135,7 +135,12 @@ def build_graph(llm=None):
 
     def route(state: AgentState):
         last = state["messages"][-1]
-        return "tools" if getattr(last, "tool_calls", None) else "curator"
+        if getattr(last, "tool_calls", None):
+            return "tools"
+        text = _text(getattr(last, "content", ""))
+        if "scoped exclusively to your loaded dataset" in text or "specialized exclusively in tabular data" in text:
+            return "end"
+        return "curator"
 
     def curator(state: AgentState):
         user = _last_user(state["messages"])
@@ -175,7 +180,7 @@ def build_graph(llm=None):
     g.add_node("curator", curator)
     g.add_edge(START, "recall")
     g.add_edge("recall", "analyst")
-    g.add_conditional_edges("analyst", route, {"tools": "tools", "curator": "curator"})
+    g.add_conditional_edges("analyst", route, {"tools": "tools", "curator": "curator", "end": END})
     g.add_edge("tools", "analyst")
     g.add_edge("curator", END)
     return g.compile(checkpointer=MemorySaver())
