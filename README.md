@@ -131,14 +131,34 @@ python -m pytest -q
 
 ---
 
+---
+
 ## 💻 Usage
 
-### Interactive Shell Mode
+### 🌐 Option 1: Interactive Web UI (Recommended for Demos)
 
-Launch the agent with any tabular dataset:
+Launch the Streamlit web dashboard for browser-based conversational analysis, live tool inspection, and inline chart visualization:
+
+```bash
+streamlit run app.py
+```
+
+Features:
+- **File Ingestion:** Drag-and-drop CSV, TSV, Excel, JSON, or Parquet files, or choose built-in sample datasets.
+- **Auditable Execution:** Real-time expanders reveal exact tool signatures and parameters (`aggregate`, `compare_groups`, etc.).
+- **Visual Rendering:** Headless matplotlib charts display directly in the chat stream.
+- **Memory Inspector:** Sidebar panel displays active definitions, reusable query filters, and conflict histories.
+
+---
+
+### 🖥️ Option 2: Interactive Terminal Shell
+
+Launch the agent in your terminal:
 
 ```bash
 python main.py sample_data/customers.csv
+# Or if installed via pip install -e .:
+da-agent sample_data/customers.csv
 ```
 
 Inside the interactive shell:
@@ -155,11 +175,14 @@ Inside the interactive shell:
   - `/memory` — Inspect all remembered definitions and named filters.
   - `/forget <key>` — Delete a specific remembered item.
   - `/clear-memory` — Wipe persisted memory.
+  - `/export` — Compile session findings into an executive Markdown report in `outputs/`.
   - `/quit` — Exit the agent session.
 
-### Single-Query Command Line Mode
+---
 
-Run a one-off analytical question directly:
+### ⚡ Option 3: Single-Query Command Line Mode
+
+Run a one-off analytical question directly and exit:
 
 ```bash
 python main.py sample_data/sales.csv --ask "Which region has the highest total revenue?"
@@ -175,7 +198,7 @@ da-agent/
 │   ├── __init__.py                # Package exports
 │   ├── config.py                  # Environment config & runtime constants
 │   ├── data.py                    # Multi-format data loader & schema inspector
-│   ├── llm.py                     # Groq LLM factory
+│   ├── llm.py                     # Groq LLM factory & validation
 │   ├── memory.py                  # Persistent curated MemoryStore
 │   ├── tools.py                   # 9 statistical, querying, & plotting tools
 │   └── graph.py                   # LangGraph dual-agent state machine
@@ -183,16 +206,20 @@ da-agent/
 │   ├── customers.csv              # Synthetic customer SaaS data
 │   ├── sales.csv                  # Multi-region sales transactions
 │   └── make_sample_data.py        # Reproducible dataset generator script
-├── tests/                         # Pytest test suite
-│   └── test_core.py               # Deterministic unit tests (offline)
+├── tests/                         # Pytest test suite (100% offline)
+│   ├── test_core.py               # 9 analysis tools + persistent memory tests
+│   └── test_graph.py              # LangGraph compilation & ReAct loop tests
 ├── memory/                        # Runtime storage
 │   └── .gitkeep                   # Tracks directory (memory.json ignored)
-├── outputs/                       # Visualization output directory
-│   └── .gitkeep                   # Tracks directory (*.png ignored)
+├── outputs/                       # Visualization & report output directory
+│   └── .gitkeep                   # Tracks directory (*.png and *.md ignored)
+├── app.py                         # Interactive Streamlit Web UI
 ├── main.py                        # CLI entrypoint
+├── pyproject.toml                 # Standard PEP 621 packaging & CLI entrypoint
 ├── requirements.txt               # Project dependencies
 ├── .env.example                   # Environment configuration template
 ├── .gitignore                     # Git ignore rules
+├── ROADMAP.md                     # Production roadmap & priority checklist
 ├── CONTEXT.md                     # Initial project context
 ├── KNOWLEDGE_AND_ARCHITECTURE.md  # Deep theoretical & technical architectural guide
 └── README.md                      # Project documentation
