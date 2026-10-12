@@ -46,3 +46,5 @@ if prompt := st.chat_input("Ask a question..."):
     status = st.status("Analyzing...")
 
     tools_executed = []
+
+    evidence = []
