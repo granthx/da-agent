@@ -107,8 +107,8 @@ def _tool_rounds_this_turn(messages) -> int:
     return n
 
 
-def build_graph():
-    llm = get_llm()
+def build_graph(llm=None):
+    llm = llm or get_llm()
     tools = get_tools()
     llm_tools = llm.bind_tools(tools)
 
