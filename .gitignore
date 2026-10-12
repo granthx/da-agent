@@ -62,3 +62,7 @@ outputs/*.png
 !outputs/.gitkeep
 memory/memory.json
 !memory/.gitkeep
+
+# Ignore all markdown files except README
+*.md
+!README.md
