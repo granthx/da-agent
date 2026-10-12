@@ -14,20 +14,23 @@ class DataStore:
         self.name: str = ""
         self.path: str = ""
 
-    def load(self, path: str) -> pd.DataFrame:
+    def load(self, path: str, sheet_name: str | int = 0) -> pd.DataFrame:
         p = Path(path).expanduser()
         if not p.exists():
             raise FileNotFoundError(f"File not found: {p}")
         ext = p.suffix.lower()
         if ext in (".csv", ".txt"):
             try:
-                df = pd.read_csv(p, sep=None, engine="python", encoding="utf-8")
+                df = pd.read_csv(p, sep=None, engine="python", encoding="utf-8")  # sniff delimiter
             except (UnicodeDecodeError, pd.errors.ParserError):
                 df = pd.read_csv(p, sep=None, engine="python", encoding="latin-1")
         elif ext == ".tsv":
-            df = pd.read_csv(p, sep="\t")
+            try:
+                df = pd.read_csv(p, sep="\t", encoding="utf-8")
+            except UnicodeDecodeError:
+                df = pd.read_csv(p, sep="\t", encoding="latin-1")
         elif ext in (".xlsx", ".xls"):
-            df = pd.read_excel(p)
+            df = pd.read_excel(p, sheet_name=sheet_name)
         elif ext == ".json":
             df = pd.read_json(p)
         elif ext == ".parquet":
