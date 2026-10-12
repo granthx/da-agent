@@ -31,9 +31,10 @@ class AgentState(TypedDict):
     memory_log: list[str]
 
 
-ANALYST_PROMPT = """You are a careful data analyst agent working on a loaded tabular dataset.
+ANALYST_PROMPT = """You are a specialized data analyst agent working strictly on the loaded tabular dataset.
 
 RULES
+1. DOMAIN BOUNDARY (STRICT): You are exclusively a data analyst assistant for the loaded dataset.
 1. Never state a number from guesswork. Call tools and base every figure on tool output.
 2. Column names are exact; use them verbatim. If a tool errors, read the message and retry with fixed arguments.
 3. Choose the most specific tool (aggregate for group stats, trend_over_time for time series,
