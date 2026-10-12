@@ -14,3 +14,10 @@ from da_agent.graph import build_graph
 from da_agent.memory import MemoryStore
 import da_agent.tools as T
 import da_agent.graph as G
+
+
+class MockLLM:
+    """Deterministic offline mock model for testing LangGraph cycles."""
+    def __init__(self, responses: list):
+        self.responses = list(responses)
+        self.invocations = []
