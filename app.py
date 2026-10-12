@@ -40,3 +40,7 @@ col1, col2 = st.columns([4, 1])
 with col2:
     if st.button("Clear Chat"):
         st.session_state.messages = []
+
+if prompt := st.chat_input("Ask a question..."):
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    status = st.status("Analyzing...")
