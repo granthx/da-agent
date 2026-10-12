@@ -128,7 +128,8 @@ def main():
         elif q == "/clear-memory":
             MEMORY.clear()
             print("memory cleared")
-
+        elif q in ("/export", "/report"):
+            print(export_report(history))
         elif STORE.df is None:
             print("Load a dataset first: /load path/to/file.csv")
         else:
