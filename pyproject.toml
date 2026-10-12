@@ -29,3 +29,18 @@ dev = [
     "pytest>=8.0",
     "streamlit>=1.35",
 ]
+
+[project.scripts]
+da-agent = "main:main"
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-q --tb=short"
+testpaths = [
+    "tests",
+]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
