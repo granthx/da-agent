@@ -24,3 +24,8 @@ with st.sidebar:
     data_source = st.radio("Choose source:", ["Sample Datasets", "Upload File"], horizontal=True)
 
     uploaded_file = st.file_uploader("Upload CSV, Excel, or Parquet", type=["csv", "tsv", "xlsx", "parquet"])
+
+    if STORE.df is not None:
+        st.write(f"Active dataset: {STORE.name}")
+        with st.expander("Inspect Schema"):
+            st.text(STORE.schema_summary())
