@@ -42,7 +42,11 @@ def main():
     ap.add_argument("--ask", help="ask one question and exit")
     args = ap.parse_args()
 
-    graph = build_graph()
+    try:
+        graph = build_graph()
+    except RuntimeError as e:
+        print(f"\n[Configuration Error] {e}\n")
+        return
     thread = uuid.uuid4().hex
     if args.file:
         STORE.load(args.file)
