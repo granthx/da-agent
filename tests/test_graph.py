@@ -30,3 +30,12 @@ class MockLLM:
         if self.responses:
             return self.responses.pop(0)
         return AIMessage(content="Default fallback mock answer")
+
+
+@pytest.fixture(autouse=True)
+def setup_test_state(tmp_path, monkeypatch):
+    STORE.load(ROOT / "sample_data" / "customers.csv")
+    mem = MemoryStore(tmp_path / "test_memory.json")
+    monkeypatch.setattr(T, "MEMORY", mem)
+    monkeypatch.setattr(G, "MEMORY", mem)
+    monkeypatch.setattr(T, "OUTPUT_DIR", tmp_path)
