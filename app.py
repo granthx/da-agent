@@ -102,7 +102,7 @@ with st.sidebar:
     st.subheader("🧠 Knowledge Memory")
     eligible_items = MEMORY.eligible(STORE.name) if STORE.name else MEMORY.items
     if eligible_items:
-        with st.expander(f"Active Memories ({len(eligible_items)})"):
+        with st.expander(f"Active Memories ({len(eligible_items)})", expanded=True):
             for it in eligible_items:
                 st.markdown(f"- **{it['type']}** (`{it['key']}`): `{it['value']}` *[{it['scope']}]*")
         if st.button("Clear Memory Store", type="secondary", use_container_width=True):
@@ -263,6 +263,8 @@ if prompt := st.chat_input("Ask a question about the dataset or teach a domain r
                 "memory_log": memory_logs,
                 "charts": new_charts,
             })
+            if memory_logs:
+                st.rerun()
 
         except Exception as e:
             status_placeholder.update(label="Execution Failed", state="error", expanded=True)

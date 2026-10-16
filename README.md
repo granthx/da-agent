@@ -131,8 +131,6 @@ python -m pytest -q
 
 ---
 
----
-
 ## 💻 Usage
 
 ### 🌐 Option 1: Interactive Web UI (Recommended for Demos)
@@ -219,17 +217,19 @@ da-agent/
 ├── requirements.txt               # Project dependencies
 ├── .env.example                   # Environment configuration template
 ├── .gitignore                     # Git ignore rules
-├── ROADMAP.md                     # Production roadmap & priority checklist
-├── CONTEXT.md                     # Initial project context
-├── KNOWLEDGE_AND_ARCHITECTURE.md  # Deep theoretical & technical architectural guide
+├── LICENSE                        # MIT License
 └── README.md                      # Project documentation
 ```
 
 ---
 
-## 📖 Deep Dive Documentation
+## 🛠️ Adding New Analysis Tools
 
-For a comprehensive breakdown of the mathematics, LangGraph state graph internals, ReAct loop mechanics, and interview defense topics, read [KNOWLEDGE_AND_ARCHITECTURE.md](KNOWLEDGE_AND_ARCHITECTURE.md).
+To extend `da_agent/tools.py` with custom analytical tools:
+1. Decorate your function with `@tool` from `langchain_core.tools`.
+2. Validate column existence using the `_col` helper for friendly error messages and typo suggestions.
+3. Support optional row filtering via `_subset(df, named_filter=..., filter_expr=...)`.
+4. Add deterministic unit test coverage in `tests/test_core.py`.
 
 ---
 

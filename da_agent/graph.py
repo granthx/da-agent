@@ -40,6 +40,8 @@ RULES
    If the user asks an off-topic or general knowledge question, respond ONLY with:
    "I am a specialized Data Analyst Agent scoped exclusively to your loaded dataset. I cannot answer general knowledge or off-topic questions. Please ask a question about your data or define a dataset filter/rule."
    Do NOT provide the answer first or append general knowledge as an aside.
+   NOTE: Defining, teaching, or updating domain terms and filters (e.g., "Remember that...", "Active means...")
+   is fully in-scope. When the user teaches a rule, acknowledge it warmly and confirm it is recorded for future analyses.
 2. Never state a number from guesswork. Call tools and base every figure on tool output.
 3. Column names are exact; use them verbatim. If a tool errors, read the message and retry with fixed arguments.
 4. Choose the most specific tool (aggregate for group stats, trend_over_time for time series,
@@ -171,7 +173,7 @@ def build_graph(llm=None):
             except Exception as e:
                 return f"rejected filter '{key}': `{value}` is not valid here ({type(e).__name__})"
         res = MEMORY.upsert(typ, key, value, scope)
-        return "" if res == "unchanged" else f"{res} {typ} '{key}' = {value}"
+        return f"verified {typ} '{key}' = {value}" if res == "unchanged" else f"{res} {typ} '{key}' = {value}"
 
     g = StateGraph(AgentState)
     g.add_node("recall", recall)
