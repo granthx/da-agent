@@ -89,48 +89,6 @@ Unlike naive chat log storage, memory items are structured, validated, and de-du
 
 ---
 
-## 🚀 Quick Start
-
-### 1. Clone & Set Up Virtual Environment
-
-```bash
-git clone https://github.com/granthx/da-agent.git
-cd da-agent
-
-# Create virtual environment
-python -m venv .venv
-
-# Activate environment
-# On Windows:
-.venv\Scripts\activate
-# On macOS/Linux:
-source .venv/bin/activate
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-### 2. Configure Environment Variables
-
-```bash
-cp .env.example .env
-```
-
-Open `.env` and configure your [Groq API Key](https://console.groq.com/keys):
-```ini
-GROQ_API_KEY=gsk_your_groq_api_key_here
-GROQ_MODEL=qwen/qwen3-32b
-```
-
-### 3. Run Tests (Zero API Tokens Required)
-
-Verify that all 9 tools, pandas operations, and memory mechanisms pass deterministic tests:
-```bash
-python -m pytest -q
-```
-
----
-
 ## 💻 Usage
 
 ### 🌐 Option 1: Interactive Web UI (Recommended for Demos)
